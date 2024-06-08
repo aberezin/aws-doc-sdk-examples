@@ -17,7 +17,8 @@ from scenario_getting_started_crawlers_and_jobs import GlueCrawlerJobScenario
 
 @pytest.mark.parametrize("error_code", [None, "TestException"])
 def test_upload_job_script(make_stubber, error_code):
-    s3_resource = boto3.resource("s3")
+    session = boto3.session.Session(region_name='us-west-2')
+    s3_resource = session.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)
     bucket = s3_resource.Bucket("test-bucket")
     scenario = GlueCrawlerJobScenario(None, None, bucket)
@@ -53,7 +54,8 @@ def test_upload_job_script(make_stubber, error_code):
     ],
 )
 def test_run(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
-    glue_client = boto3.client("glue")
+    session = boto3.session.Session(region_name='us-west-2')
+    glue_client = session.client("glue")
     glue_stubber = make_stubber(glue_client)
     iam_resource = boto3.resource("iam")
     iam_stubber = make_stubber(iam_resource.meta.client)

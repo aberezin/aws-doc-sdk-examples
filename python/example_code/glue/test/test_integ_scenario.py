@@ -16,10 +16,11 @@ import scenario_getting_started_crawlers_and_jobs as scenario_script
 
 @pytest.mark.integ
 def test_run_integ(monkeypatch):
-    cf_resource = boto3.resource("cloudformation")
-    s3_resource = boto3.resource("s3")
-    glue_client = boto3.client("glue")
-    iam_resource = boto3.resource("iam")
+    session = boto3.session.Session(region_name='us-west-2')
+    cf_resource = session.resource("cloudformation")
+    s3_resource = session.resource("s3")
+    glue_client = session.client("glue")
+    iam_resource = session.resource("iam")
     stack = cf_resource.Stack("doc-example-glue-integ-test-stack")
 
     inputs = ["y", "1", "y", "1", "1", "1", "y", "y", "y"]
