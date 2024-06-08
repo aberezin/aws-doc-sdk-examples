@@ -22,7 +22,9 @@ import scaffold
     ],
 )
 def test_deploy(make_stubber, stub_runner, error_code, stop_on_method):
-    cf_resource = boto3.resource("cloudformation")
+    # not sure why but aws' test fails unless a region is chosen
+    session = boto3.session.Session(region_name='us-west-2')
+    cf_resource = session.resource("cloudformation") #boto3.resource("cloudformation")
     cf_stubber = make_stubber(cf_resource.meta.client)
     stack_name = "test-stack"
     capabilities = ["CAPABILITY_NAMED_IAM"]
@@ -72,7 +74,9 @@ def test_deploy(make_stubber, stub_runner, error_code, stop_on_method):
     ],
 )
 def test_destroy(make_stubber, stub_runner, monkeypatch, error_code, stop_on_method):
-    cf_resource = boto3.resource("cloudformation")
+    # not sure why but aws' test fails unless a region is chosen
+    session = boto3.session.Session(region_name='us-west-2')
+    cf_resource = session.resource("cloudformation") #boto3.resource("cloudformation")
     cf_stubber = make_stubber(cf_resource.meta.client)
     s3_resource = boto3.resource("s3")
     s3_stubber = make_stubber(s3_resource.meta.client)

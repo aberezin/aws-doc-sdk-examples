@@ -288,7 +288,7 @@ def parse_args(args):
     :return: The parsed arguments.
     """
     parser = argparse.ArgumentParser(
-        description="Runs the AWS Glue getting started with crawlers and jobs scenario. "
+        description="Disabled: Runs the AWS Glue getting started with crawlers and jobs scenario. "
         "Before you run this scenario, set up scaffold resources by running "
         "'python scaffold.py deploy'."
     )
@@ -335,7 +335,7 @@ def main():
         )
         print("-" * 88)
         print(
-            "To destroy scaffold resources, including the IAM role and S3 bucket "
+            "Disabled: To destroy scaffold resources, including the IAM role and S3 bucket "
             "used in this scenario, run 'python scaffold.py destroy'."
         )
         print("\nThanks for watching!")
